@@ -1,7 +1,6 @@
 {
   "name": "react-native-document-processor",
   "version": "0.1.0",
-  "private": true,
   "description": "Native image-to-PDF and QR processing for 24hMoney",
   "main": "src/index.ts",
   "react-native": "src/index.ts",
@@ -15,6 +14,10 @@
   "homepage": "https://github.com/quocvu12345/react-native-document-processor#readme",
   "bugs": {
     "url": "https://github.com/quocvu12345/react-native-document-processor/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "files": [
     "src/index.ts",

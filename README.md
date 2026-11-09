@@ -5,20 +5,22 @@ bằng native. Được phát triển cho luồng giấy tờ của 24hMoney.
 
 Repository: [quocvu12345/react-native-document-processor](https://github.com/quocvu12345/react-native-document-processor).
 
-## Cài từ GitHub
+## Cài bằng npm hoặc Yarn
 
 ```sh
-yarn add 'react-native-document-processor@git+https://github.com/quocvu12345/react-native-document-processor.git#v0.1.0'
+yarn add react-native-document-processor@0.1.0 --exact
+# Hoặc: npm install react-native-document-processor@0.1.0 --save-exact
 pod install --project-directory=ios
 ```
+
+Package: [react-native-document-processor trên npm](https://www.npmjs.com/package/react-native-document-processor).
+Source native của phiên bản này cũng có ở tag GitHub `v0.1.0`.
 
 Yêu cầu Android API 28+, iOS 15.1+ và React Native có autolinking. Đã kiểm tra
 trong ứng dụng React Native 0.83. Camera Android dùng Google Play services;
 ML Kit barcode model được đóng gói sẵn trong app. iOS cần khai báo
 `NSCameraUsageDescription` trong `Info.plist` của ứng dụng.
 
-Phân phối qua GitHub tag `v0.1.0`; chưa phát hành lên npm. `private: true` trong
-`package.json` ngăn publish nhầm lên npm, không ngăn cài package từ GitHub.
 Metadata giấy phép hiện giữ nguyên `UNLICENSED`.
 
 ## Luồng xử lý
@@ -58,8 +60,8 @@ các trang đã xong; iOS dùng Core Graphics PDF context và autorelease pool t
 
 ## Phát triển trong ứng dụng 24hMoney
 
-Root `package.json` đã khai báo dependency `file:node_modules_dev/react-native-document-processor`.
-Expo/React Native autolinking nhận cả podspec iOS và package Android.
+Root `package.json` dùng phiên bản registry `0.1.0`. Expo/React Native autolinking
+nhận cả podspec iOS và package Android.
 
 ```sh
 yarn install
@@ -71,10 +73,9 @@ không bổ sung được native module vào binary cũ. `FileUploadHelper` luô
 mới cho camera và tạo PDF; không còn fallback sang hai thư viện đã gỡ. Cần phát
 hành binary mới và quản lý runtime OTA phù hợp khi triển khai thay đổi này.
 
-Yarn 1 có thể copy dependency `file:` vào `node_modules`; sau khi sửa source cần
-đảm bảo bản dependency đã cài được cập nhật trước khi rebuild. Trong workspace
-triển khai ban đầu, `node_modules/react-native-document-processor` được symlink
-đến source để phát triển trực tiếp.
+Source phát triển vẫn nằm trong `node_modules_dev/react-native-document-processor`.
+Khi cần thử thay đổi local, có thể tạm dùng dependency `file:`; trước khi phát hành
+app cần quay lại phiên bản registry đã publish và rebuild native.
 
 ```ts
 import { processDocumentImages, scanDocument } from 'react-native-document-processor';
