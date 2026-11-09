@@ -1,0 +1,16 @@
+node_modules/
+build/
+.gradle/
+.cxx/
+.idea/
+.DS_Store
+local.properties
+*.log
+*.tgz
+*.apk
+*.aab
+*.keystore
+*.jks
+Pods/
+DerivedData/
+coverage/

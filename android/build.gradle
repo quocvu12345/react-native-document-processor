@@ -1,0 +1,24 @@
+apply plugin: 'com.android.library'
+
+android {
+    namespace 'vn.money24h.documentprocessor'
+    testBuildType 'release'
+    compileSdkVersion rootProject.ext.has('compileSdkVersion') ? rootProject.ext.compileSdkVersion : 35
+    defaultConfig {
+        minSdkVersion 28
+        targetSdkVersion rootProject.ext.has('targetSdkVersion') ? rootProject.ext.targetSdkVersion : 35
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation 'com.facebook.react:react-android'
+    implementation 'com.google.mlkit:barcode-scanning:17.3.0'
+    implementation 'com.google.android.gms:play-services-mlkit-document-scanner:16.0.0'
+    androidTestImplementation 'androidx.test:runner:1.6.1'
+    androidTestImplementation 'com.google.zxing:core:3.5.2'
+}
