@@ -1,6 +1,7 @@
 #import <React/RCTBridgeModule.h>
 #import <React/RCTInvalidating.h>
 #import <ImageIO/ImageIO.h>
+#import <TargetConditionals.h>
 #import <UIKit/UIKit.h>
 #import <Vision/Vision.h>
 #import "DPDocumentCapture.h"
@@ -53,6 +54,13 @@ static NSDictionary<NSString *, NSArray<VNBarcodeSymbology> *> *DPBarcodeFormats
 static NSArray<VNBarcodeObservation *> *DPReadBarcodes(CGImageRef image,
     NSArray<VNBarcodeSymbology> *symbologies, NSError **error) {
   VNDetectBarcodesRequest *request = [VNDetectBarcodesRequest new];
+#if TARGET_OS_SIMULATOR
+  // The default QR revision cannot create its inference context on Simulator.
+  // Revision 1 reads document QR codes without that inference path.
+  if (symbologies.count == 1 && [symbologies.firstObject isEqualToString:VNBarcodeSymbologyQR]) {
+    request.revision = VNDetectBarcodesRequestRevision1;
+  }
+#endif
   request.symbologies = symbologies;
   VNImageRequestHandler *handler = [[VNImageRequestHandler alloc] initWithCGImage:image options:@{}];
   return [handler performRequests:@[request] error:error] ? (request.results ?: @[]) : nil;
